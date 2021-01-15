@@ -15,7 +15,11 @@
                         </a>
                         <div class="card-body">
                             <p class="card-text">
-                                <p class="text-muted">{{ Str::title($book->author->fullname) }}</p>
+                                <p class="text-muted">
+                                    <a href="{{ route('library.author', $book->author) }}" class="text-reset text-decoration-none">
+                                        {{ Str::title($book->author->fullname) }}
+                                    </a>
+                                </p>
                                 <a href="{{ route('library.book', $book) }}" class="h5 font-weight-bold text-reset text-decoration-none">
                                     {{ Str::title($book->title) }}
                                 </a>
@@ -37,11 +41,13 @@
                 @foreach ($randomAuthors as $author)
                     <div class="card text-center">
                         <div class="card-body">
-                            <p class="card-text text-uppercase">
-                                <strong>{{ Str::title($author->fullname) }}</strong>
+                            <p class="card-text text-uppercase font-weight-bold">
+                                {{ Str::title($author->fullname) }}
                             </p>
                         </div>
                         <img src="{{ $author->avatar }}" class="card-img-bottom" alt="Title">
+
+                        <a href="{{ route('library.author', $author) }}" class="stretched-link"></a>
                     </div>
                 @endforeach
             </div>

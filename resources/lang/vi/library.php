@@ -41,5 +41,7 @@ return [
         'review-message' => 'Đăng nhập để lưu lại đánh giá',
         'no-reviews' => 'Không có đánh giá nào',
     ],
+    'author-followers' => 'Đang theo dõi :fullname',
+    'author-books' => 'Sách của :fullname',
 
 ];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Models\Book;
 use App\Models\Like;
+use App\Models\Author;
 use App\Models\Follow;
 use App\Models\Review;
 use App\Models\Category;
@@ -56,7 +57,7 @@ class LibraryController extends Controller
     {
         return view('home.library.book', [
             'book' => $book,
-            'reviews' => $book->reviews()->latest('reviewed_at')->paginate(config('app.num-rows')),
+            'reviews' => $book->reviews()->with('image')->latest('reviewed_at')->paginate(config('app.num-rows')),
         ]);
     }
 
@@ -148,6 +149,15 @@ class LibraryController extends Controller
                         ])->render(),
             'avgRating' => $book->printAvgRatingText() .' '. $book->avg_rating .' / 5',
             'reviewCount' => $reviewCount .' '. trans_choice('library.reviews', $reviewCount),
+        ]);
+    }
+
+    public function viewAuthor(Author $author)
+    {
+        return view('home.library.author', [
+            'author' => $author,
+            'follows' => $author->followers()->with('user', 'user.image')->latest('followed_at')->paginate(config('app.num-followers')),
+            'books' => $author->books()->with('image', 'reviews')->paginate(config('app.num-rows')),
         ]);
     }
 

@@ -28,6 +28,8 @@ Route::name('library.')->group(function () {
 
     Route::post('/book/{book}/rate', [LibraryController::class, 'rateBook'])->name('rate');
 
+    Route::get('/author/{author}', [LibraryController::class, 'viewAuthor'])->name('author');
+
 });
 
 Route::prefix('dashboard')->middleware('auth')->group(function () {

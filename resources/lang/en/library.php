@@ -41,5 +41,7 @@ return [
         'review-message' => 'Please sign in if you want to leave a review',
         'no-reviews' => 'No Reviews',
     ],
+    'author-followers' => ':fullname\'s followers',
+    'author-books' => ':fullname\'s books',
 
 ];

@@ -62,11 +62,9 @@
                                             {{ Str::title($book->title) }}
                                         </a>
                                         <br />
-                                        <small class="text-uppercase">
-                                            <a href="" class="text-reset text-decoration-none">
-                                                {{ $book->author->fullname }}
-                                            </a>
-                                        </small>
+                                        <a href="{{ route('library.author', $book->author) }}" class="text-reset text-decoration-none text-uppercase">
+                                            <small>{{ $book->author->fullname }}</small>
+                                        </a>
                                         <br />
                                         <small>{!! $book->printAvgRatingText() !!}</small>
                                     </h5>

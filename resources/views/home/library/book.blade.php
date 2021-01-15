@@ -2,8 +2,8 @@
     @php
         $user = Auth::user();
 
-        $reviewCount = $book->reviews()->count();
-        $likeCount = $book->likes()->count();
+        $reviewCount = $reviews->total();
+        $likeCount = $book->likes->count();
     @endphp
     <div class="col-9 mx-auto my-5 bg-white border p-4">
         @if ($errors->any())
@@ -40,7 +40,9 @@
                         {{ Str::title($book->title) }}
                     </a>
                     <br/>
-                    <small>{{ Str::title($book->author->fullname) }}</small>
+                    <a href="{{ route('library.author', $book->author) }}" class="text-reset text-decoration-none">
+                        <small>{{ Str::title($book->author->fullname) }}</small>
+                    </a>
                 </h2>
                 <ul class="list-group list-group-horizontal">
                     <li class="list-group-item avg-rating">

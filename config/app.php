@@ -130,6 +130,7 @@ return [
     */
 
     'num-rows' => 10,
+    'num-followers' => 39,
     'cache-time' => 60,
     'default-image' => [
         'user' => 'images/users/user.png',

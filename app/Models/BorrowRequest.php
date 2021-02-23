@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Support\Carbon;
+use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class BorrowRequest extends Pivot
 {
+    use Searchable;
 
     protected $table = 'borrow_requests';
 
@@ -74,6 +76,22 @@ class BorrowRequest extends Pivot
     public function scopeDefaultSort($query)
     {
         return $query->latest('created_at', 'from', 'to', 'returned_at');
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'user' => optional($this->user)->fullname,
+            'book' => optional($this->book)->title,
+            'from' => $this->from,
+            'to' => $this->to,
+        ];
+    }
+
+    protected function makeAllSearchableUsing($query)
+    {
+        return $query->with('user', 'book');
     }
 
 }

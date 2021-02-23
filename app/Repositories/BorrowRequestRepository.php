@@ -85,22 +85,14 @@ class BorrowRequestRepository extends BaseRepository implements BorrowRequestRep
                 break;
         }
 
+        $result->defaultSort();
+
         if (!empty($search)) {
-            $search = '%'. str_replace(' ', '%', $search) .'%';
-            $result->where(function ($query) use ($search) {
-                $query->whereHas('user', function (Builder $query) use ($search) {
-                    $query->whereRaw('LOWER(first_name) like ?', $search)
-                            ->orWhereRaw('LOWER(last_name) like ?', $search)
-                            ->orWhereRaw('CONCAT(first_name, " ", last_name) like ?', $search);
-                })->orWhereHas('book', function (Builder $query) use ($search) {
-                    $query->whereRaw('LOWER(title) like ?', $search);
-                });
-            });
+            $result = $this->model->search($search)->constrain($result);
         }
 
         return $withPaginator
-                ? $result->defaultSort()
-                            ->paginate(config('app.num-rows'))
+                ? $result->paginate(config('app.num-rows'))
                             ->withQueryString()
                 : $result->get();
     }

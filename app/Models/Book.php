@@ -4,12 +4,13 @@ namespace App\Models;
 
 use App\Traits\HasImage;
 use Illuminate\Support\Str;
+use Laravel\Scout\Searchable;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    use HasImage;
+    use HasImage, Searchable;
 
     protected $guarded = [];
 
@@ -86,6 +87,22 @@ class Book extends Model
         }
 
         return $star;
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'author' => optional($this->author)->fullname,
+            'publisher' => optional($this->publisher)->name,
+        ];
+    }
+
+    protected function makeAllSearchableUsing($query)
+    {
+        return $query->with('author', 'publisher');
     }
 
 }

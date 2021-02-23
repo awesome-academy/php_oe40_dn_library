@@ -33,17 +33,7 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
         }
 
         if (!empty($search)) {
-            $result->where(function ($query) use ($search) {
-                $query->whereRaw('LOWER(title) like ?', $search)
-                        ->orWhereRaw('LOWER(description) like ?', $search)
-                        ->orWhereHas('author', function (Builder $query) use ($search) {
-                            $query->whereRaw('LOWER(first_name) like ?', $search)
-                                    ->orWhereRaw('LOWER(last_name) like ?', $search);
-                        })
-                        ->orWhereHas('publisher', function (Builder $query) use ($search) {
-                            $query->whereRaw('LOWER(name) like ?', $search);
-                        });
-            });
+            $result = $this->model->search($search)->constrain($result);
         }
 
         return $result->paginate(config('app.num-rows'))->withQueryString();

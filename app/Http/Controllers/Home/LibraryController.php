@@ -58,14 +58,8 @@ class LibraryController extends Controller
             }
         }
 
-        if ($request->filled('search')) {
-            $search = '%'. str_replace(' ', '%', $request->search ?: '') .'%';
-        } else {
-            $search = null;
-        }
-
         $categories = $this->categoryRepo->getRootCategories();
-        $books = $this->bookRepo->search($subCategories, $search);
+        $books = $this->bookRepo->search($subCategories, $request->search);
 
         return view('home.library.index', compact('categories', 'books'));
     }

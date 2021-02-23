@@ -18,11 +18,14 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "infyomlabs/laravel-ui-adminlte": "^3.1",
         "laravel/framework": "^8.12",
+        "laravel/scout": "^8.6",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
         "livewire/livewire": "^2.3",
         "predis/predis": "^1.1",
-        "pusher/pusher-php-server": "^4.1"
+        "pusher/pusher-php-server": "^4.1",
+        "teamtnt/laravel-scout-tntsearch-driver": "^11.1",
+        "teamtnt/tntsearch": "^2.6"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
